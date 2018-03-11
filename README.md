@@ -23,4 +23,87 @@ longestpath------------O(n) [n=no. of courses]
 add_edge---------------O(1)
 isDCG------------------O(n) [n=no. of courses]
 
+*********cStack.hpp************
+This structure has an array, of which the left side acts as the red stack and the right side as the blue stack.
+It has the following functions:
+    Name                 Description                                 Time Complexity
+	redsize();   ------> returns the size of the red stack               O(1)
+	bluesize();   ------> returns the size of the blue stack             O(1)
+	redempty();   ------> returns true if the red stack is empty         O(1)
+	blueempty();   ------> returns true if the blue stack is empty       O(1)
+	redtop();       -->     returns top element of the redstack          O(1)
+	           (if red stack stack is empty it will print error and terminate the code) 
+	bluetop();       -->     returns top element of the bluestack        O(1)
+	           (if blue stack stack is empty it will print error and terminate the code)
+	redpush();      --> pushes the element onto the red stack            O(1)
+	                    (if there is no space it will print overflow error) 
+	bluepush();     --> pushes the element onto the blue stack           O(1)
+	                    (if there is no space it will print overflow error) 
+	redpop();       --> removes element from the top of red stack        O(1)
+	                    (if redstack is empty it will give underflow error)
+    	bluepop();      --> removes element from the top of red stack        O(1)
+                       	    (if redstack is empty it will give error)
+
+******deque.hpp*****
+
+deque uses a cstack to create a double ended queue
+any push/pop operation for front uses redStack
+any push/pop operation for back uses blueStack
+if any stack is empty while the other is non-empty it reorders the elements
+
+1) Deque();	
+--> creates a deque using cStack of size 100
+2) int size() const
+--> returns the number of items in the deque
+3) bool empty() const	
+--> return true if the deque is empty
+4) const E& front() const
+--> returns the first element , gives error if deque is empty
+5) const E& back() const
+--> returns the last element , gives error if deque is empty
+6) void insertFront(const E& e)
+--> inserts new element at the front
+7) void insertBack(const E& e)
+--> inserts new element at the back
+8) void removeFront()
+--> removes first element , error if deque is empty
+9) void removeBack()
+--> removes last element , error if deque is empty
+
+TIME COMPLEXITY:
+size() , front() , back() , insertFront() , insertBack() are all O(1)
+removeFront() and removeBack() are O(1)(Average) 
+PROOF:
+for N remove operations:
+first N/2 will be O(1)
+next there will be N/2 ordering operations 
+next N/4 operations will be O(1)
+in this fashion
+order will be 
+O( (N/2+N/2+N/4+N/4.......)/N ) = O(1)
+
+*****heap.hpp*****
+1)Heap()
+--> creates a node pointer of type E entered by the user
+2) int size() const
+--> returns number of elements in the heap
+3) bool isEmpty() const
+--> returns true if the queue is empty
+4) void insert(const E& e)
+--> insert element in the heap as well as heapifies
+5) const E& min() const
+--> returns minimum element of the heap , error if heap is empty
+6) void removeMin()
+--> remove minimum element from the heap , error if empty
+7) Heap* mergeHeaps()
+--> merges two heaps
+8) void buildHeap(int A[], int size)
+--> creates a heap from elements in the array
+
+TIME COMPLEXITY:
+size() , isEmpty() , min() , are all O(1)
+insert() , removeMin() are order O(logn) as the node will be swapped logn times in worst case
+mergeHeaps() is order n , it performs n operations to extract elements from the array and calls buildHeap
+
+buildHeap assign the correct pointers in order n and heapifies which is order n as every element is heapified at most logh times where h is the height of that node , so integral sums down to n
 
